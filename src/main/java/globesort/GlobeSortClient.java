@@ -44,7 +44,7 @@ public class GlobeSortClient {
         long startPingTime = System.nanoTime();
         serverStub.ping(Empty.newBuilder().build());
         //measure current time and calculate the difference
-        long PingTime = System.nanoTime() - startTime;
+        long PingTime = System.nanoTime() - startPingTime;
         System.out.println("Ping successful.");
         System.out.println("Ping time:"+PingTime/1000000+"ms");
         System.out.println("latency:"+PingTime/1000000/2+"ms");         
