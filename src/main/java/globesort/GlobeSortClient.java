@@ -41,28 +41,28 @@ public class GlobeSortClient {
     public void run(Integer[] values) throws Exception {
         System.out.println("Pinging " + serverStr + "...");
         //measure current time
-        long startTime = System.nanoTime();
+        long startPingTime = System.nanoTime();
         serverStub.ping(Empty.newBuilder().build());
         //measure current time and calculate the difference
-        long estimatedTime = System.nanoTime() - startTime;
+        long PingTime = System.nanoTime() - startTime;
         System.out.println("Ping successful.");
-        System.out.println("Ping time:"+estimatedTime/1000000+"ms");
-        System.out.println("latency:"+estimatedTime/1000000/2+"ms");         
+        System.out.println("Ping time:"+PingTime/1000000+"ms");
+        System.out.println("latency:"+PingTime/1000000/2+"ms");         
 
         System.out.println("Requesting server to sort array");
-        IntArray request = IntArray.newBuilder().addAllValues(Arrays.asList(values)).build();
+        IntArray request = IntArray.newBuilder().setSortingtime(0).addAllValues(Arrays.asList(values)).build();
         //measure current time
         long startTime = System.nanoTime();
         IntArray response = serverStub.sortIntegers(request);
         //measure current time and calculate the difference
-        long estimatedTime = System.nanoTime() - startTime;
+        long applicationTime = System.nanoTime() - startTime;
         System.out.println("Sorted array");
-        System.out.println("Application time: "+estimatedTime/1000000+"ms");
+        System.out.println("Application time: "+applicationTime/1000000+"ms");
         //Read the response of the sorting time from server
-        int sortingTime = response[0];
+        int sortingTime = response.getSortingtime();
         int sortedSize = values.length;
-        System.out.println("Application throughput: "+sortedSize*1000000000.0/estimatedTime+" records per second");
-        System.out.println("one-way throughput: "+sortedSize*1000000.0*2/(estimatedTime/1000-sortingTime)+" records per second");
+        System.out.println("Application throughput: "+sortedSize*1000000000.0/applicationTime+" records per second");
+        System.out.println("one-way throughput: "+sortedSize*1000000.0*2/(applicationTime/1000-sortingTime)+" records per second");
     }
 
     public void shutdown() throws InterruptedException {
