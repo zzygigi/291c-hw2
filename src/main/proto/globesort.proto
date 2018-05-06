@@ -12,6 +12,6 @@ service GlobeSort {
 message Empty { }
 
 message IntArray {
-  int32 sortingtime = 0;
-  repeated int32 values = 1;
+  int32 sortingtime = 1;
+  repeated int32 values = 2;
 }
