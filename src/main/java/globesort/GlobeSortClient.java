@@ -62,7 +62,7 @@ public class GlobeSortClient {
         int sortingTime = response.getSortingtime();
         int sortedSize = values.length;
         System.out.println("Application throughput: "+sortedSize*1000000000.0/applicationTime+" records per second");
-        System.out.println("one-way throughput: "+sortedSize*1000000.0*2/(applicationTime/1000-sortingTime)+" records per second");
+        System.out.println("one-way throughput: "+sortedSize*1000.0*2/(applicationTime/1000000-sortingTime)+" records per second");
     }
 
     public void shutdown() throws InterruptedException {
